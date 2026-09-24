@@ -66,7 +66,7 @@ def metadata_json() -> dict:
     return json.loads(Path(str(ROOT / "data/bundled/dataset_manifest.json")).read_text("utf-8"))
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, max_entries=16)
 def fit_poisson(cutoff: str) -> dict:
     """Fit the decay-weighted Poisson model on matches strictly before cutoff."""
     matches = load_matches()
@@ -107,7 +107,7 @@ def poisson_model(cutoff):
     return model
 
 
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, max_entries=64)
 def profiles_for(home: str, away: str, cutoff: str):
     matches = load_matches()
     h = as_of_profile(matches, home, cutoff)
@@ -151,13 +151,8 @@ def probability_gauge(probs: dict[str, float], key: str = "gauge") -> None:
     st.markdown("**Estimated probability** (sums to 100%)")
     colors = {"H": "#0f6e43", "D": "#b7791f", "A": "#1f4e79"}
     vals = [probs[k] for k in ("H", "D", "A")]
-    df = pd.DataFrame(
-        {
-            "outcome": ["Home win", "Draw", "Away win"],
-            "p": vals,
-        }
-    )
-    st.bar_chart(df.set_index("outcome"), color=[colors[k] for k in ("H", "D", "A")],
+    df = pd.DataFrame([vals], index=["Probability"], columns=["Home win", "Draw", "Away win"])
+    st.bar_chart(df, color=[colors[k] for k in ("H", "D", "A")],
                  horizontal=True, height=180, width="stretch")
     c = st.columns(3)
     for col, k in zip(c, ("H", "D", "A")):
@@ -328,7 +323,7 @@ def page_timeline(matches: pd.DataFrame) -> None:
 
     with st.spinner("Building replay timeline..."):
         timeline = build_replay_timeline(row)
-        model = poisson_model(row["Date"] + pd.Timedelta(days=1))
+        model = poisson_model(row["Date"])
 
     if model is None:
         st.warning("No finished matches preceded this fixture, so probability updates cannot "
@@ -390,7 +385,7 @@ def page_report(matches: pd.DataFrame) -> None:
     has_ht = pd.notna(row.get("HTHG")) and pd.notna(row.get("HTAG"))
 
     with st.spinner("Building match report..."):
-        model = poisson_model(row["Date"] + pd.Timedelta(days=1))
+        model = poisson_model(row["Date"])
         if model is None:
             st.warning("No finished matches preceded this fixture, so the estimated-vs-result "
                        "comparison is unavailable. Facts below are still shown.")
