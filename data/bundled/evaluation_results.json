@@ -1,0 +1,573 @@
+{
+  "generated_at": "2026-09-24T11:28:31+00:00",
+  "method": "Time-split hold-out; models fit strictly before the test window. Prematch = forecast at kickoff. Halftime = forecast at minute 45 given the HT score (Poisson remaining-goals conditioning). Naive = league base rates from training data.",
+  "test_seasons": [
+    "2024/25",
+    "2025/26"
+  ],
+  "test_matches": 760,
+  "halftime_states": 760,
+  "train_matches": 11184,
+  "models": {
+    "naive": {
+      "name": "Naive (league base rates)",
+      "role": "baseline"
+    },
+    "poisson_pre": {
+      "name": "Poisson goals model",
+      "role": "main model (prematch)"
+    },
+    "poisson_ht": {
+      "name": "Poisson goals model",
+      "role": "main model (halftime, in-play)"
+    },
+    "logistic": {
+      "name": "Logistic regression (sklearn)",
+      "role": "complexity check"
+    }
+  },
+  "scenario": {
+    "prematch": {
+      "naive": {
+        "model": "naive",
+        "n": 760,
+        "log_loss": 1.0841126235026108,
+        "brier": 0.2190760082685233,
+        "calibration_abs_error": NaN,
+        "calibration_n_bins": 0,
+        "calibration": []
+      },
+      "poisson_pre": {
+        "model": "poisson_pre",
+        "n": 760,
+        "log_loss": 1.0258331039653952,
+        "brier": 0.20542324154762984,
+        "calibration_abs_error": 0.04270925709882346,
+        "calibration_n_bins": 15,
+        "calibration": [
+          {
+            "outcome": "A",
+            "bin": "(0.0274, 0.192]",
+            "n": 152,
+            "mean_predicted": 0.11585655688676971,
+            "observed_rate": 0.1513157894736842,
+            "abs_error": 0.035459232586914496
+          },
+          {
+            "outcome": "A",
+            "bin": "(0.192, 0.275]",
+            "n": 152,
+            "mean_predicted": 0.23315847462948108,
+            "observed_rate": 0.2631578947368421,
+            "abs_error": 0.029999420107361008
+          },
+          {
+            "outcome": "A",
+            "bin": "(0.275, 0.353]",
+            "n": 152,
+            "mean_predicted": 0.31200226731868896,
+            "observed_rate": 0.3157894736842105,
+            "abs_error": 0.003787206365521545
+          },
+          {
+            "outcome": "A",
+            "bin": "(0.353, 0.466]",
+            "n": 153,
+            "mean_predicted": 0.40335062643631314,
+            "observed_rate": 0.35947712418300654,
+            "abs_error": 0.04387350225330661
+          },
+          {
+            "outcome": "A",
+            "bin": "(0.466, 0.818]",
+            "n": 151,
+            "mean_predicted": 0.5996030333263688,
+            "observed_rate": 0.5298013245033113,
+            "abs_error": 0.06980170882305747
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.0682, 0.187]",
+            "n": 153,
+            "mean_predicted": 0.15003153552931342,
+            "observed_rate": 0.20915032679738563,
+            "abs_error": 0.05911879126807221
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.187, 0.213]",
+            "n": 152,
+            "mean_predicted": 0.2017569326801188,
+            "observed_rate": 0.21710526315789475,
+            "abs_error": 0.015348330477775951
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.213, 0.231]",
+            "n": 151,
+            "mean_predicted": 0.22311672072876182,
+            "observed_rate": 0.32450331125827814,
+            "abs_error": 0.10138659052951632
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.231, 0.248]",
+            "n": 152,
+            "mean_predicted": 0.23930432129869728,
+            "observed_rate": 0.2236842105263158,
+            "abs_error": 0.015620110772381485
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.248, 0.304]",
+            "n": 152,
+            "mean_predicted": 0.26404310034061157,
+            "observed_rate": 0.3223684210526316,
+            "abs_error": 0.05832532071202001
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.059699999999999996, 0.305]",
+            "n": 152,
+            "mean_predicted": 0.19723721001648875,
+            "observed_rate": 0.20394736842105263,
+            "abs_error": 0.006710158404563876
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.305, 0.398]",
+            "n": 152,
+            "mean_predicted": 0.3516039788135573,
+            "observed_rate": 0.3618421052631579,
+            "abs_error": 0.010238126449600593
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.398, 0.489]",
+            "n": 152,
+            "mean_predicted": 0.4421401439461929,
+            "observed_rate": 0.375,
+            "abs_error": 0.06714014394619289
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.489, 0.605]",
+            "n": 152,
+            "mean_predicted": 0.5424371367878533,
+            "observed_rate": 0.4934210526315789,
+            "abs_error": 0.0490160841562744
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.605, 0.902]",
+            "n": 152,
+            "mean_predicted": 0.7261299191034771,
+            "observed_rate": 0.6513157894736842,
+            "abs_error": 0.07481412962979295
+          }
+        ]
+      },
+      "logistic": {
+        "model": "logistic",
+        "n": 760,
+        "log_loss": 1.0151332797380226,
+        "brier": 0.20270547394443336,
+        "calibration_abs_error": 0.03162328381001545,
+        "calibration_n_bins": 15,
+        "calibration": [
+          {
+            "outcome": "A",
+            "bin": "(0.0172, 0.146]",
+            "n": 152,
+            "mean_predicted": 0.09473576121855938,
+            "observed_rate": 0.125,
+            "abs_error": 0.03026423878144062
+          },
+          {
+            "outcome": "A",
+            "bin": "(0.146, 0.227]",
+            "n": 152,
+            "mean_predicted": 0.18416258949032482,
+            "observed_rate": 0.20394736842105263,
+            "abs_error": 0.019784778930727803
+          },
+          {
+            "outcome": "A",
+            "bin": "(0.227, 0.316]",
+            "n": 152,
+            "mean_predicted": 0.2713636451643162,
+            "observed_rate": 0.35526315789473684,
+            "abs_error": 0.08389951273042062
+          },
+          {
+            "outcome": "A",
+            "bin": "(0.316, 0.436]",
+            "n": 152,
+            "mean_predicted": 0.3698579096282097,
+            "observed_rate": 0.3881578947368421,
+            "abs_error": 0.0182999851086324
+          },
+          {
+            "outcome": "A",
+            "bin": "(0.436, 0.764]",
+            "n": 152,
+            "mean_predicted": 0.542392292842453,
+            "observed_rate": 0.5460526315789473,
+            "abs_error": 0.003660338736494295
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.08839999999999999, 0.219]",
+            "n": 152,
+            "mean_predicted": 0.18319317703392093,
+            "observed_rate": 0.21710526315789475,
+            "abs_error": 0.03391208612397381
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.219, 0.248]",
+            "n": 152,
+            "mean_predicted": 0.23523251246187837,
+            "observed_rate": 0.2565789473684211,
+            "abs_error": 0.0213464349065427
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.248, 0.263]",
+            "n": 152,
+            "mean_predicted": 0.2557674776140469,
+            "observed_rate": 0.24342105263157895,
+            "abs_error": 0.012346424982467935
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.263, 0.274]",
+            "n": 152,
+            "mean_predicted": 0.2681559614112871,
+            "observed_rate": 0.2894736842105263,
+            "abs_error": 0.021317722799239214
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.274, 0.529]",
+            "n": 152,
+            "mean_predicted": 0.28478415375288185,
+            "observed_rate": 0.2894736842105263,
+            "abs_error": 0.004689530457644475
+          },
+          {
+            "outcome": "H",
+            "bin": "(-0.000938, 0.293]",
+            "n": 152,
+            "mean_predicted": 0.20356811802298883,
+            "observed_rate": 0.17763157894736842,
+            "abs_error": 0.025936539075620407
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.293, 0.409]",
+            "n": 152,
+            "mean_predicted": 0.35449560690779763,
+            "observed_rate": 0.3355263157894737,
+            "abs_error": 0.01896929111832396
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.409, 0.513]",
+            "n": 152,
+            "mean_predicted": 0.46041080948272023,
+            "observed_rate": 0.3881578947368421,
+            "abs_error": 0.07225291474587814
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.513, 0.629]",
+            "n": 152,
+            "mean_predicted": 0.5728726684128457,
+            "observed_rate": 0.5328947368421053,
+            "abs_error": 0.039977931570740366
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.629, 0.892]",
+            "n": 152,
+            "mean_predicted": 0.7190073165557692,
+            "observed_rate": 0.6513157894736842,
+            "abs_error": 0.06769152708208503
+          }
+        ]
+      }
+    },
+    "halftime": {
+      "naive": {
+        "model": "naive",
+        "n": 760,
+        "log_loss": 1.0841126235026108,
+        "brier": 0.2190760082685233,
+        "calibration_abs_error": NaN,
+        "calibration_n_bins": 0,
+        "calibration": []
+      },
+      "poisson_pre": {
+        "model": "poisson_pre",
+        "n": 760,
+        "log_loss": 1.0258331039653952,
+        "brier": 0.20542324154762984,
+        "calibration_abs_error": 0.04270925709882346,
+        "calibration_n_bins": 15,
+        "calibration": [
+          {
+            "outcome": "A",
+            "bin": "(0.0274, 0.192]",
+            "n": 152,
+            "mean_predicted": 0.11585655688676971,
+            "observed_rate": 0.1513157894736842,
+            "abs_error": 0.035459232586914496
+          },
+          {
+            "outcome": "A",
+            "bin": "(0.192, 0.275]",
+            "n": 152,
+            "mean_predicted": 0.23315847462948108,
+            "observed_rate": 0.2631578947368421,
+            "abs_error": 0.029999420107361008
+          },
+          {
+            "outcome": "A",
+            "bin": "(0.275, 0.353]",
+            "n": 152,
+            "mean_predicted": 0.31200226731868896,
+            "observed_rate": 0.3157894736842105,
+            "abs_error": 0.003787206365521545
+          },
+          {
+            "outcome": "A",
+            "bin": "(0.353, 0.466]",
+            "n": 153,
+            "mean_predicted": 0.40335062643631314,
+            "observed_rate": 0.35947712418300654,
+            "abs_error": 0.04387350225330661
+          },
+          {
+            "outcome": "A",
+            "bin": "(0.466, 0.818]",
+            "n": 151,
+            "mean_predicted": 0.5996030333263688,
+            "observed_rate": 0.5298013245033113,
+            "abs_error": 0.06980170882305747
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.0682, 0.187]",
+            "n": 153,
+            "mean_predicted": 0.15003153552931342,
+            "observed_rate": 0.20915032679738563,
+            "abs_error": 0.05911879126807221
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.187, 0.213]",
+            "n": 152,
+            "mean_predicted": 0.2017569326801188,
+            "observed_rate": 0.21710526315789475,
+            "abs_error": 0.015348330477775951
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.213, 0.231]",
+            "n": 151,
+            "mean_predicted": 0.22311672072876182,
+            "observed_rate": 0.32450331125827814,
+            "abs_error": 0.10138659052951632
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.231, 0.248]",
+            "n": 152,
+            "mean_predicted": 0.23930432129869728,
+            "observed_rate": 0.2236842105263158,
+            "abs_error": 0.015620110772381485
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.248, 0.304]",
+            "n": 152,
+            "mean_predicted": 0.26404310034061157,
+            "observed_rate": 0.3223684210526316,
+            "abs_error": 0.05832532071202001
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.059699999999999996, 0.305]",
+            "n": 152,
+            "mean_predicted": 0.19723721001648875,
+            "observed_rate": 0.20394736842105263,
+            "abs_error": 0.006710158404563876
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.305, 0.398]",
+            "n": 152,
+            "mean_predicted": 0.3516039788135573,
+            "observed_rate": 0.3618421052631579,
+            "abs_error": 0.010238126449600593
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.398, 0.489]",
+            "n": 152,
+            "mean_predicted": 0.4421401439461929,
+            "observed_rate": 0.375,
+            "abs_error": 0.06714014394619289
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.489, 0.605]",
+            "n": 152,
+            "mean_predicted": 0.5424371367878533,
+            "observed_rate": 0.4934210526315789,
+            "abs_error": 0.0490160841562744
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.605, 0.902]",
+            "n": 152,
+            "mean_predicted": 0.7261299191034771,
+            "observed_rate": 0.6513157894736842,
+            "abs_error": 0.07481412962979295
+          }
+        ]
+      },
+      "poisson_ht": {
+        "model": "poisson_ht",
+        "n": 760,
+        "log_loss": 0.8644800151905716,
+        "brier": 0.16920831252341537,
+        "calibration_abs_error": 0.039811485913174974,
+        "calibration_n_bins": 15,
+        "calibration": [
+          {
+            "outcome": "A",
+            "bin": "(-0.000864, 0.0491]",
+            "n": 152,
+            "mean_predicted": 0.018657229676015564,
+            "observed_rate": 0.039473684210526314,
+            "abs_error": 0.02081645453451075
+          },
+          {
+            "outcome": "A",
+            "bin": "(0.0491, 0.174]",
+            "n": 152,
+            "mean_predicted": 0.09461510445325054,
+            "observed_rate": 0.14473684210526316,
+            "abs_error": 0.050121737652012624
+          },
+          {
+            "outcome": "A",
+            "bin": "(0.174, 0.32]",
+            "n": 152,
+            "mean_predicted": 0.24401916335055268,
+            "observed_rate": 0.24342105263157895,
+            "abs_error": 0.0005981107189737267
+          },
+          {
+            "outcome": "A",
+            "bin": "(0.32, 0.619]",
+            "n": 152,
+            "mean_predicted": 0.44927645151108564,
+            "observed_rate": 0.47368421052631576,
+            "abs_error": 0.024407759015230124
+          },
+          {
+            "outcome": "A",
+            "bin": "(0.619, 1.0]",
+            "n": 152,
+            "mean_predicted": 0.7883817060893846,
+            "observed_rate": 0.7171052631578947,
+            "abs_error": 0.07127644293148994
+          },
+          {
+            "outcome": "D",
+            "bin": "(-0.000833, 0.101]",
+            "n": 152,
+            "mean_predicted": 0.04713528988614177,
+            "observed_rate": 0.09210526315789473,
+            "abs_error": 0.044969973271752964
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.101, 0.199]",
+            "n": 152,
+            "mean_predicted": 0.15495912449414087,
+            "observed_rate": 0.19736842105263158,
+            "abs_error": 0.04240929655849071
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.199, 0.273]",
+            "n": 152,
+            "mean_predicted": 0.23400062617639988,
+            "observed_rate": 0.2565789473684211,
+            "abs_error": 0.02257832119202119
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.273, 0.347]",
+            "n": 152,
+            "mean_predicted": 0.3163722675351675,
+            "observed_rate": 0.35526315789473684,
+            "abs_error": 0.03889089035956933
+          },
+          {
+            "outcome": "D",
+            "bin": "(0.347, 0.46]",
+            "n": 152,
+            "mean_predicted": 0.37921429206579493,
+            "observed_rate": 0.39473684210526316,
+            "abs_error": 0.01552255003946823
+          },
+          {
+            "outcome": "H",
+            "bin": "(-0.0009814000000000001, 0.13]",
+            "n": 152,
+            "mean_predicted": 0.05981504880055938,
+            "observed_rate": 0.09868421052631579,
+            "abs_error": 0.03886916172575641
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.13, 0.307]",
+            "n": 152,
+            "mean_predicted": 0.22162155026263777,
+            "observed_rate": 0.19078947368421054,
+            "abs_error": 0.030832076578427237
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.307, 0.53]",
+            "n": 152,
+            "mean_predicted": 0.3979531322010077,
+            "observed_rate": 0.375,
+            "abs_error": 0.022953132201007698
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.53, 0.791]",
+            "n": 152,
+            "mean_predicted": 0.685138290513192,
+            "observed_rate": 0.5855263157894737,
+            "abs_error": 0.0996119747237183
+          },
+          {
+            "outcome": "H",
+            "bin": "(0.791, 0.998]",
+            "n": 152,
+            "mean_predicted": 0.908840722984669,
+            "observed_rate": 0.8355263157894737,
+            "abs_error": 0.07331440719519533
+          }
+        ]
+      }
+    }
+  }
+}

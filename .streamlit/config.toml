@@ -1,0 +1,18 @@
+# Streamlit configuration for Community Cloud.
+# See https://docs.streamlit.io/develop/api-reference/configuration
+
+[server]
+# Friendly port for local runs (Cloud ignores this).
+port = 8501
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+primaryColor = "#0f6e43"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f2f7f4"
+textColor = "#17201b"
+
+[client]
+showErrorDetails = "full"
